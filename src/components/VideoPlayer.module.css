@@ -160,62 +160,83 @@
 
 /* ── Movie title at the bottom ── */
 /* ── Responsive Adjustments ── */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
     .container {
-        padding: 1.5rem 0;
+        padding: 0;
+        margin-top: 1rem;
     }
 
     .sectionTitle {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         padding: 0 1.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .videoWrapper {
+        width: 100vw;
+        height: 85dvh;
+        /* Fill the mobile screen vertically */
+        padding-bottom: 0;
+        /* Override the 16:9 ratio for mobile immersion */
+        margin-left: 0;
         border-radius: 0;
-        /* Edge-to-edge feel on mobile */
         box-shadow: none;
-        border-left: none;
-        border-right: none;
+        border: none;
+    }
+
+    .thumbnail {
+        height: 100%;
+        object-fit: cover;
+        /* Ensure image covers the full vertical area */
     }
 
     .playButton {
-        width: 65px;
-        height: 65px;
+        width: 80px;
+        height: 80px;
+        background: rgba(212, 175, 55, 0.95);
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
     }
 
     .trailerBadge {
-        top: 1rem;
-        left: 1rem;
-        padding: 0.35rem 0.8rem;
-        font-size: 0.7rem;
+        top: 1.5rem;
+        left: 1.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 
     .movieNameLabel {
-        font-size: 1.2rem;
+        font-size: 2rem;
+        line-height: 1.2;
     }
 
     .titleOverlay {
-        padding: 1.25rem 1.5rem;
+        padding: 2.5rem 1.5rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
     }
 }
 
-/* Horizontal / Landscape Mode on Mobile */
-@media (max-height: 480px) and (orientation: landscape) {
+/* Horizontal / Landscape Mode on Mobile - Complete Screen Coverage */
+@media (max-height: 500px) and (orientation: landscape) {
     .container {
         padding: 0;
+        margin: 0;
     }
 
     .sectionTitle {
         display: none;
-        /* Hide title to maximize video space */
     }
 
     .videoWrapper {
+        width: 100vw;
+        height: 100dvh;
+        /* Complete vertical and horizontal cover */
         padding-bottom: 0;
-        height: 100vh;
-        /* Cover entire height */
+        margin: 0;
         border-radius: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
     }
 
     .iframe {
