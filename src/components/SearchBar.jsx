@@ -15,6 +15,7 @@ import styles from './SearchBar.module.css';
 export default function SearchBar() {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [trending, setTrending] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [error, setError] = useState('');
@@ -23,27 +24,44 @@ export default function SearchBar() {
     const wrapperRef = useRef(null);
 
     /**
+     * Effect: Fetch trending discovery movies on mount.
+     */
+    useEffect(() => {
+        const fetchTrending = async () => {
+            try {
+                const res = await fetch('/api/trending?count=12');
+                if (res.ok) {
+                    const data = await res.json();
+                    setTrending(data.movies || []);
+                }
+            } catch (err) {
+                console.error("Failed to fetch discovery images:", err);
+            }
+        };
+        fetchTrending();
+    }, []);
+
+    /**
      * Effect: Handles debounced search suggestions as the user types.
      */
     useEffect(() => {
-        if (query.length < 2) { // Changed from query.trim().length
+        if (query.length < 2) {
             setSuggestions([]);
             return;
         }
 
-        const timer = setTimeout(async () => { // Renamed timeoutId to timer, added async
+        const timer = setTimeout(async () => {
             try {
-                // Don't set isLoading(true) for suggestions, only for full searches
                 const res = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`);
                 if (res.ok) {
                     const data = await res.json();
-                    setSuggestions(data.suggestions || []); // Reverted to data.suggestions to match API route
+                    setSuggestions(data.suggestions || []);
                     setShowSuggestions(true);
                 }
             } catch (err) {
                 console.error("Failed to fetch suggestions:", err);
             }
-        }, 300); // 300ms debounce buffer
+        }, 300);
 
         return () => clearTimeout(timer);
     }, [query]);
@@ -76,11 +94,10 @@ export default function SearchBar() {
     };
 
     const handleSelectSuggestion = (suggestion) => {
-        setQuery(suggestion.title); // Update visual input immediately
+        setQuery(suggestion.title);
         setShowSuggestions(false);
         setIsFocused(false);
         setIsLoading(true);
-        // We push the ID specifically to avoid text ambiguity if identical movie titles exist
         router.push(`/results?id=${encodeURIComponent(suggestion.id)}`);
     };
 
@@ -128,7 +145,37 @@ export default function SearchBar() {
                     </div>
 
                     <AnimatePresence>
-                        {showSuggestions && suggestions.length > 0 && (
+                        {/* Discovery Grid: Show when focused and no query */}
+                        {isFocused && !query && trending.length > 0 && (
+                            <motion.div
+                                className={styles.discoveryContainer}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <div className={styles.discoveryHeader}>Trending Discovery</div>
+                                <div className={styles.discoveryGrid}>
+                                    {trending.map((movie) => (
+                                        <div
+                                            key={movie.id}
+                                            className={styles.discoveryItem}
+                                            onClick={() => handleSelectSuggestion({ id: movie.id, title: movie.name })}
+                                        >
+                                            <img
+                                                src={movie.image || '/placeholder.jpg'}
+                                                alt={movie.name}
+                                                className={styles.discoveryImage}
+                                            />
+                                            <div className={styles.discoveryTooltip}>{movie.name}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {/* Suggestions List: Show when typing */}
+                        {showSuggestions && query.length >= 2 && suggestions.length > 0 && (
                             <motion.div
                                 className={styles.suggestionsContainer}
                                 initial={{ opacity: 0, y: -10 }}

@@ -205,9 +205,10 @@ export async function getPersonDetailsAndCredits(personId) {
 }
 /**
  * Fetches the currently trending movies from TMDB.
+ * @param {number} count - Number of movies to return
  * @returns {Promise<Array>} List of formatted trending movies
  */
-export async function getTrendingMovies() {
+export async function getTrendingMovies(count = 8) {
     if (!TMDB_API_KEY) {
         throw new Error('TMDB_API_KEY is missing');
     }
@@ -216,7 +217,7 @@ export async function getTrendingMovies() {
         const data = await fetchTMDB('/trending/movie/day', { page: 1 });
         const results = data.results || [];
 
-        return results.slice(0, 8).map(movie => {
+        return results.slice(0, count).map(movie => {
             const posterPath = movie.poster_path;
             const fullImageUrl = posterPath
                 ? `https://image.tmdb.org/t/p/w500${posterPath}`.trim()
