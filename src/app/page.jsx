@@ -53,7 +53,7 @@ export default function Home() {
         // Fetch dynamic trending data
         const fetchTrending = async () => {
             try {
-                const res = await fetch('/api/trending');
+                const res = await fetch('/api/trending?count=20');
                 if (res.ok) {
                     const data = await res.json();
                     setTrendingMovies(data.movies || []);
@@ -109,7 +109,7 @@ export default function Home() {
 
                     {isLoadingTrending ? (
                         <div className={styles.loadingGrid}>
-                            {[...Array(8)].map((_, i) => (
+                            {[...Array(20)].map((_, i) => (
                                 <div key={i} className={styles.skeletonCard} />
                             ))}
                         </div>
