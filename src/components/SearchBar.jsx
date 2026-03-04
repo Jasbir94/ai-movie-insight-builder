@@ -16,6 +16,7 @@ export default function SearchBar() {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -52,6 +53,7 @@ export default function SearchBar() {
         function handleClickOutside(event) {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
                 setShowSuggestions(false);
+                setIsFocused(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -68,6 +70,7 @@ export default function SearchBar() {
         }
 
         setShowSuggestions(false);
+        setIsFocused(false);
         setIsLoading(true);
         router.push(`/results?id=${encodeURIComponent(query.trim())}`);
     };
@@ -75,78 +78,91 @@ export default function SearchBar() {
     const handleSelectSuggestion = (suggestion) => {
         setQuery(suggestion.title); // Update visual input immediately
         setShowSuggestions(false);
+        setIsFocused(false);
         setIsLoading(true);
         // We push the ID specifically to avoid text ambiguity if identical movie titles exist
         router.push(`/results?id=${encodeURIComponent(suggestion.id)}`);
     };
 
     return (
-        <div className={styles.container}>
-            <motion.form
-                ref={wrapperRef}
-                onSubmit={handleSearch}
-                className={styles.searchForm}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-            >
-                <div className={styles.inputWrapper}>
-                    <Search className={styles.icon} size={20} />
-                    <input
-                        type="text"
-                        placeholder="Search smartly... (e.g. Inception)"
-                        value={query}
-                        onChange={(e) => {
-                            setQuery(e.target.value);
-                            setShowSuggestions(true);
-                        }}
-                        onFocus={() => {
-                            if (query.trim().length >= 2) setShowSuggestions(true);
-                        }}
-                        className={styles.input}
-                        disabled={isLoading}
-                        autoComplete="off"
-                    />
-                    <button type="submit" className={styles.button} disabled={isLoading}>
-                        {isLoading ? 'Searching...' : 'Analyze'}
-                    </button>
-                </div>
+        <>
+            {isFocused && (
+                <div
+                    className={styles.overlayActive}
+                    onClick={() => {
+                        setIsFocused(false);
+                        setShowSuggestions(false);
+                    }}
+                />
+            )}
+            <div className={styles.container}>
+                <motion.form
+                    ref={wrapperRef}
+                    onSubmit={handleSearch}
+                    className={styles.searchForm}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <div className={styles.inputWrapper}>
+                        <Search className={styles.icon} size={20} />
+                        <input
+                            type="text"
+                            placeholder="Search smartly... (e.g. Inception)"
+                            value={query}
+                            onChange={(e) => {
+                                setQuery(e.target.value);
+                                setShowSuggestions(true);
+                            }}
+                            onFocus={() => {
+                                setIsFocused(true);
+                                if (query.trim().length >= 2) setShowSuggestions(true);
+                            }}
+                            className={styles.input}
+                            disabled={isLoading}
+                            autoComplete="off"
+                        />
+                        <button type="submit" className={styles.button} disabled={isLoading}>
+                            {isLoading ? 'Searching...' : 'Analyze'}
+                        </button>
+                    </div>
 
-                <AnimatePresence>
-                    {showSuggestions && suggestions.length > 0 && (
-                        <motion.div
-                            className={styles.suggestionsContainer}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            {suggestions.map((s) => (
-                                <div
-                                    key={s.id}
-                                    className={styles.suggestionItem}
-                                    onClick={() => handleSelectSuggestion(s)}
-                                >
-                                    {s.poster ? (
-                                        <Image src={s.poster} alt={s.title} className={styles.suggestionPoster} width={50} height={75} />
-                                    ) : (
-                                        <div className={styles.suggestionPosterPlaceholder}>🎬</div>
-                                    )}
-                                    <div className={styles.suggestionInfo}>
-                                        <span className={styles.suggestionTitle}>{s.title}</span>
-                                        <div className={styles.suggestionMeta}>
-                                            <span>{s.year}</span>
-                                            <span className={styles.suggestionRating}>★ {s.rating}</span>
+                    <AnimatePresence>
+                        {showSuggestions && suggestions.length > 0 && (
+                            <motion.div
+                                className={styles.suggestionsContainer}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                {suggestions.map((s) => (
+                                    <div
+                                        key={s.id}
+                                        className={styles.suggestionItem}
+                                        onClick={() => handleSelectSuggestion(s)}
+                                    >
+                                        {s.poster ? (
+                                            <Image src={s.poster} alt={s.title} className={styles.suggestionPoster} width={50} height={75} />
+                                        ) : (
+                                            <div className={styles.suggestionPosterPlaceholder}>🎬</div>
+                                        )}
+                                        <div className={styles.suggestionInfo}>
+                                            <span className={styles.suggestionTitle}>{s.title}</span>
+                                            <div className={styles.suggestionMeta}>
+                                                <span>{s.year}</span>
+                                                <span className={styles.suggestionRating}>★ {s.rating}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                {error && <p className={styles.error}>{error}</p>}
-            </motion.form>
-        </div>
+                    {error && <p className={styles.error}>{error}</p>}
+                </motion.form>
+            </div>
+        </>
     );
 }
