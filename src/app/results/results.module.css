@@ -32,10 +32,39 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
-    gap: 1rem;
+    min-height: 80vh;
+    gap: 1.5rem;
     text-align: center;
-    color: var(--negative);
+    background: radial-gradient(circle at center, rgba(239, 68, 68, 0.05) 0%, transparent 70%);
+}
+
+.errorIcon {
+    margin-bottom: 0.5rem;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.errorMessage {
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 400px;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .backButton {

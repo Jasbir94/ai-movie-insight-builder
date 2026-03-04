@@ -58,7 +58,7 @@ export async function getMovieDetailsAndCredits(query) {
         throw new Error('TMDB_API_KEY is missing');
     }
 
-    const isImdbId = /^tt\d{7,8}$/.test(query);
+    const isImdbId = /^tt\d{7,}$/.test(query);
     const isTmdbId = /^\d+$/.test(query);
     let tmdbMovieId;
     let movieBasicData;
@@ -70,6 +70,7 @@ export async function getMovieDetailsAndCredits(query) {
                 external_source: 'imdb_id'
             });
             if (!findData.movie_results || findData.movie_results.length === 0) {
+                console.error(`IMDb ID search failed on TMDB for: ${query}`);
                 throw new Error('Movie not found on TMDB');
             }
             movieBasicData = findData.movie_results[0];
@@ -83,6 +84,7 @@ export async function getMovieDetailsAndCredits(query) {
                 page: 1
             });
             if (!searchData.results || searchData.results.length === 0) {
+                console.error(`Search query failed on TMDB for: ${query}`);
                 throw new Error('Movie not found on TMDB');
             }
             movieBasicData = searchData.results[0];

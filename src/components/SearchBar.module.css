@@ -135,7 +135,12 @@
     padding: 0.75rem 1rem;
     cursor: pointer;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.suggestionItem:active {
+    background: rgba(212, 175, 55, 0.2);
+    transform: scale(0.98);
 }
 
 .suggestionItem:last-child {
@@ -222,8 +227,8 @@
     .container {
         max-width: 100%;
         position: sticky;
-        top: 3.5rem;
-        /* Below the live ticker */
+        top: 2.8rem;
+        /* Adjusted to be flush below the live bar on most devices */
         z-index: 102;
         /* Increased to be above overlayActive (100) */
         margin: 0.5rem 0;
@@ -264,7 +269,8 @@
 @media (max-width: 480px) {
 
     .suggestionItem {
-        padding: 1rem;
+        padding: 1.25rem 1rem;
+        /* Increased hit area for mobile */
     }
 
     .suggestionPoster {

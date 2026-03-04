@@ -8,7 +8,7 @@ import CastGrid from '@/components/CastGrid';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import VideoPlayer from '@/components/VideoPlayer';
 import SuggestedMovies from '@/components/SuggestedMovies';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Search as SearchIcon, AlertCircle } from 'lucide-react';
 import styles from './results.module.css';
 
 /**
@@ -100,10 +100,13 @@ function ResultsContent() {
     if (error) {
         return (
             <div className={styles.errorContainer}>
+                <div className={styles.errorIcon}>
+                    <AlertCircle size={48} color="var(--negative)" />
+                </div>
                 <h2>Oops! Something went wrong</h2>
-                <p>{error}</p>
+                <p className={styles.errorMessage}>{error}</p>
                 <button onClick={() => router.push('/')} className={styles.backButton}>
-                    <ArrowLeft size={18} /> Back to Search
+                    <SearchIcon size={18} /> Try a different movie
                 </button>
             </div>
         );
