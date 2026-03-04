@@ -66,6 +66,8 @@ export default function VideoPlayer({ youtubeId, movieTitle }) {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
+                        webkitallowfullscreen="true"
+                        mozallowfullscreen="true"
                     />
                 )}
             </div>
