@@ -202,4 +202,9 @@
     .suggestionMeta {
         font-size: 0.75rem;
     }
+
+    .button {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
+    }
 }
