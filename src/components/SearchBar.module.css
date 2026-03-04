@@ -93,7 +93,8 @@
     background: var(--gray-dark);
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 12px;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: 60vh;
     z-index: 50;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(12px);
@@ -184,30 +185,6 @@
 }
 
 @media (max-width: 480px) {
-    .suggestionsContainer {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-top: 0;
-        border-radius: 20px 20px 0 0;
-        max-height: 70vh;
-        overflow-y: auto;
-        border-bottom: none;
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
-        animation: slideUpMobile 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes slideUpMobile {
-        from {
-            transform: translateY(100%);
-        }
-
-        to {
-            transform: translateY(0);
-        }
-    }
 
     .suggestionItem {
         padding: 1rem;
