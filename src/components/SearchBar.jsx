@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import styles from './SearchBar.module.css';
 
 /**
@@ -129,7 +130,7 @@ export default function SearchBar() {
                                     onClick={() => handleSelectSuggestion(s)}
                                 >
                                     {s.poster ? (
-                                        <img src={s.poster} alt={s.title} className={styles.suggestionPoster} />
+                                        <Image src={s.poster} alt={s.title} className={styles.suggestionPoster} width={50} height={75} />
                                     ) : (
                                         <div className={styles.suggestionPosterPlaceholder}>🎬</div>
                                     )}

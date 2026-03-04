@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './CastGrid.module.css';
 
 /**
@@ -28,10 +29,12 @@ export default function CastGrid({ cast }) {
                         >
                             <div className={styles.portrait}>
                                 {actor.image ? (
-                                    <img
+                                    <Image
                                         src={actor.image}
                                         alt={actor.name}
                                         className={styles.photo}
+                                        width={200}
+                                        height={300}
                                     />
                                 ) : (
                                     <div className={styles.photoPlaceholder}>

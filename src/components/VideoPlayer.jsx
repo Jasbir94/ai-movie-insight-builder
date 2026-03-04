@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import styles from './VideoPlayer.module.css';
 
 export default function VideoPlayer({ youtubeId, movieTitle }) {
@@ -15,12 +16,14 @@ export default function VideoPlayer({ youtubeId, movieTitle }) {
                 {!isPlaying ? (
                     <div className={styles.thumbnailContainer} onClick={() => setIsPlaying(true)}>
                         {/* Thumbnail Image */}
-                        <img
+                        <Image
                             src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
                             alt={`${movieTitle || 'Movie'} Official Trailer`}
                             className={styles.thumbnail}
+                            width={1280}
+                            height={720}
                             onError={(e) => {
-                                e.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+                                e.target.srcset = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg 1x`;
                             }}
                         />
 

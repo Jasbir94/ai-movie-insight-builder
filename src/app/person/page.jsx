@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import { ArrowLeft, Eye, MessageCircle, ThumbsUp, Star, Award } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './person.module.css';
 
 function RecommendationsSection({ personId }) {
@@ -41,7 +42,7 @@ function RecommendationsSection({ personId }) {
                     <Link href={`/results?id=${movie.id}`} key={movie.id} className={styles.recCard}>
                         <div className={styles.recRank}>#{idx + 1}</div>
                         {movie.poster ? (
-                            <img src={movie.poster} alt={movie.title} className={styles.recPoster} />
+                            <Image src={movie.poster} alt={movie.title} className={styles.recPoster} width={200} height={300} />
                         ) : (
                             <div className={styles.recPoster} style={{ background: '#1a1a1a' }} />
                         )}
@@ -125,7 +126,7 @@ function PersonContent() {
             </button>
             <div className={styles.profileSection}>
                 {person.image ? (
-                    <img src={person.image} alt={person.name} className={styles.profileImage} />
+                    <Image src={person.image} alt={person.name} className={styles.profileImage} width={300} height={450} />
                 ) : (
                     <div className={styles.profileImage} style={{ background: '#1a1a1a' }} />
                 )}
@@ -149,7 +150,7 @@ function PersonContent() {
                 {person.credits.map((movie, idx) => (
                     <Link href={`/results?id=${movie.id}`} key={`${movie.id}-${idx}`} className={styles.movieCard}>
                         {movie.poster ? (
-                            <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                            <Image src={movie.poster} alt={movie.title} className={styles.moviePoster} width={200} height={300} />
                         ) : (
                             <div className={styles.moviePoster} style={{ background: '#1a1a1a' }} />
                         )}

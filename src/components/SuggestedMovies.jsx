@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, MessageCircle, Star, Flame, TrendingUp, Award } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './SuggestedMovies.module.css';
 
 const BADGES = [
@@ -98,7 +99,7 @@ export default function SuggestedMovies({ movieId }) {
                                 {/* Poster */}
                                 <div className={styles.posterWrap}>
                                     {movie.poster ? (
-                                        <img src={movie.poster} alt={movie.title} className={styles.poster} />
+                                        <Image src={movie.poster} alt={movie.title} className={styles.poster} width={500} height={750} />
                                     ) : (
                                         <div className={styles.posterPlaceholder} />
                                     )}

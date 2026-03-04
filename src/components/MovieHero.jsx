@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Star, Calendar, Film } from 'lucide-react';
+import Image from 'next/image';
 import styles from './MovieHero.module.css';
 
 /**
@@ -36,7 +37,7 @@ export default function MovieHero({ movie }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <img src={poster} alt={`${title} poster`} className={styles.poster} />
+                        <Image src={poster} alt={`${title} poster`} className={styles.poster} width={500} height={750} />
                         <div className={styles.posterShine} />
                     </motion.div>
                 )}
