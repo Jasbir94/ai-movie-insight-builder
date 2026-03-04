@@ -54,6 +54,8 @@
 
 .poster {
     width: 100%;
+    height: auto;
+    object-fit: cover;
     border-radius: 14px;
     position: relative;
     z-index: 2;
