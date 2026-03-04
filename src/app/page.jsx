@@ -159,11 +159,9 @@ export default function Home() {
                         {TRENDING_MOVIES.map(movie => (
                             <a key={movie.id} href={`/results?id=${movie.id}`} className={styles.movieCard}>
                                 <div className={styles.posterWrapper}>
-                                    <Image
+                                    <img
                                         src={movie.image}
                                         alt={movie.name}
-                                        width={300}
-                                        height={450}
                                         className={styles.posterImage}
                                         loading="lazy"
                                     />
