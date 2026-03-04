@@ -31,73 +31,6 @@ function StatCounter({ value, label, icon: Icon }) {
     );
 }
 
-const TRENDING_MOVIES = [
-    {
-        id: 'tt0468569',
-        name: 'The Dark Knight',
-        year: '2008',
-        rating: '9.0',
-        image: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDp92SKyYw9ebS7n9Uv.jpg',
-        badge: '🔥 #1 Trending'
-    },
-    {
-        id: 'tt1375666',
-        name: 'Inception',
-        year: '2010',
-        rating: '8.8',
-        image: 'https://image.tmdb.org/t/p/w500/8IB23LsnpiS3mH6hgaqcTuo3vH8.jpg',
-        badge: '⭐ Must Watch'
-    },
-    {
-        id: 'tt0133093',
-        name: 'The Matrix',
-        year: '1999',
-        rating: '8.7',
-        image: 'https://image.tmdb.org/t/p/w500/f89U3Y9S7Dky35Zgu1ORyccj9eH.jpg',
-        badge: '📈 Classic'
-    },
-    {
-        id: 'tt0111161',
-        name: 'The Shawshank Redemption',
-        year: '1994',
-        rating: '9.3',
-        image: 'https://image.tmdb.org/t/p/w500/q6y0Go1tsvn2KBigCSTp3qzIuoM.jpg',
-        badge: '🏆 Top Rated'
-    },
-    {
-        id: 'tt0109830',
-        name: 'Forrest Gump',
-        year: '1994',
-        rating: '8.8',
-        image: 'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxY9LscAFJs.jpg',
-        badge: '💛 Beloved'
-    },
-    {
-        id: 'tt15367370',
-        name: 'Everything Everywhere All At Once',
-        year: '2022',
-        rating: '7.8',
-        image: 'https://image.tmdb.org/t/p/w500/rKvC7RM097q966777YVT6B99o8o.jpg',
-        badge: '✨ Oscar Winner'
-    },
-    {
-        id: 'tt15239678',
-        name: 'Dune: Part Two',
-        year: '2024',
-        rating: '8.6',
-        image: 'https://image.tmdb.org/t/p/w500/czembS0Rhi6BrYj74iUToURz69.jpg',
-        badge: '🪐 Epic'
-    },
-    {
-        id: 'tt1160419',
-        name: 'Dune',
-        year: '2021',
-        rating: '8.0',
-        image: 'https://image.tmdb.org/t/p/w500/d5PB69enrollTV4pYp1v8U9AKy.jpg',
-        badge: '🌟 Atmospheric'
-    },
-];
-
 /**
  * Home Page Component
  * The cinematic landing page of the AI Movie Insight Builder.
@@ -106,14 +39,33 @@ const TRENDING_MOVIES = [
 export default function Home() {
     const [streak, setStreak] = useState(0);
     const [liveViewers, setLiveViewers] = useState(843);
+    const [trendingMovies, setTrendingMovies] = useState([]);
+    const [isLoadingTrending, setIsLoadingTrending] = useState(true);
 
     /**
-     * Effect: Initialize social proof elements and user session markers.
+     * Effect: Initialize social proof elements and fetch dynamic trending data.
      */
     useEffect(() => {
         // Read session streak from localStorage to reward recurring usage
         const stored = parseInt(localStorage.getItem('movieStreak') || '0', 10);
         setStreak(stored);
+
+        // Fetch dynamic trending data
+        const fetchTrending = async () => {
+            try {
+                const res = await fetch('/api/trending');
+                if (res.ok) {
+                    const data = await res.json();
+                    setTrendingMovies(data.movies || []);
+                }
+            } catch (err) {
+                console.error('Failed to load trending movies:', err);
+            } finally {
+                setIsLoadingTrending(false);
+            }
+        };
+
+        fetchTrending();
 
         // Periodically fluctuate live viewer count to enhance the feeling of a "live" community
         const interval = setInterval(() => {
@@ -155,31 +107,39 @@ export default function Home() {
                         <span>Curated Selections</span>
                     </div>
 
-                    <div className={styles.movieGrid}>
-                        {TRENDING_MOVIES.map(movie => (
-                            <a key={movie.id} href={`/results?id=${movie.id}`} className={styles.movieCard}>
-                                <div className={styles.posterWrapper}>
-                                    <img
-                                        src={movie.image}
-                                        alt={movie.name}
-                                        className={styles.posterImage}
-                                        loading="lazy"
-                                    />
-                                    <div className={styles.cardOverlay}>
-                                        <span className={styles.cardBadge}>{movie.badge}</span>
-                                        <div className={styles.cardRating}>
-                                            <Star size={12} fill="var(--gold)" />
-                                            {movie.rating}
+                    {isLoadingTrending ? (
+                        <div className={styles.loadingGrid}>
+                            {[...Array(8)].map((_, i) => (
+                                <div key={i} className={styles.skeletonCard} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={styles.movieGrid}>
+                            {trendingMovies.map(movie => (
+                                <a key={movie.id} href={`/results?id=${movie.id}`} className={styles.movieCard}>
+                                    <div className={styles.posterWrapper}>
+                                        <img
+                                            src={movie.image || '/placeholder.jpg'}
+                                            alt={movie.name}
+                                            className={styles.posterImage}
+                                            loading="lazy"
+                                        />
+                                        <div className={styles.cardOverlay}>
+                                            <span className={styles.cardBadge}>{movie.badge}</span>
+                                            <div className={styles.cardRating}>
+                                                <Star size={12} fill="var(--gold)" />
+                                                {movie.rating}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className={styles.movieInfo}>
-                                    <h3 className={styles.movieName}>{movie.name}</h3>
-                                    <p className={styles.movieYear}>{movie.year}</p>
-                                </div>
-                            </a>
-                        ))}
-                    </div>
+                                    <div className={styles.movieInfo}>
+                                        <h3 className={styles.movieName}>{movie.name}</h3>
+                                        <p className={styles.movieYear}>{movie.year}</p>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </main>

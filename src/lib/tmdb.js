@@ -203,3 +203,29 @@ export async function getPersonDetailsAndCredits(personId) {
         throw new Error(error.message || 'Failed to fetch person details');
     }
 }
+/**
+ * Fetches the currently trending movies from TMDB.
+ * @returns {Promise<Array>} List of formatted trending movies
+ */
+export async function getTrendingMovies() {
+    if (!TMDB_API_KEY) {
+        throw new Error('TMDB_API_KEY is missing');
+    }
+
+    try {
+        const data = await fetchTMDB('/trending/movie/day', { page: 1 });
+        const results = data.results || [];
+
+        return results.slice(0, 8).map(movie => ({
+            id: movie.id.toString(),
+            name: movie.title,
+            year: (movie.release_date || '').substring(0, 4) || 'N/A',
+            rating: movie.vote_average ? movie.vote_average.toFixed(1) : 'NR',
+            image: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null,
+            badge: movie.vote_average > 8 ? '🔥 Trending' : '⭐ Popular'
+        }));
+    } catch (error) {
+        console.error('Failed to fetch trending movies:', error);
+        return [];
+    }
+}
