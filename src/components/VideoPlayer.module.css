@@ -174,11 +174,11 @@
 
     .videoWrapper {
         width: 100vw;
-        height: 85dvh;
-        /* Fill the mobile screen vertically */
+        height: 100dvh;
+        /* Absolute full screen height */
         padding-bottom: 0;
-        /* Override the 16:9 ratio for mobile immersion */
-        margin-left: 0;
+        margin-left: calc(-50vw + 50%);
+        /* Force edge-to-edge centering */
         border-radius: 0;
         box-shadow: none;
         border: none;
