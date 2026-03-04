@@ -32,11 +32,70 @@ function StatCounter({ value, label, icon: Icon }) {
 }
 
 const TRENDING_MOVIES = [
-    { id: 'tt0468569', name: 'The Dark Knight', badge: '🔥 #1 This Week' },
-    { id: 'tt1375666', name: 'Inception', badge: '⭐ IMDb Top 10' },
-    { id: 'tt0133093', name: 'The Matrix', badge: '📈 Trending' },
-    { id: 'tt0111161', name: 'The Shawshank Redemption', badge: '🏆 All-Time Best' },
-    { id: 'tt0109830', name: 'Forrest Gump', badge: '💛 Fan Favourite' },
+    {
+        id: 'tt0468569',
+        name: 'The Dark Knight',
+        year: '2008',
+        rating: '9.0',
+        image: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDp92SKyYw9ebS7n9Uv.jpg',
+        badge: '🔥 #1 Trending'
+    },
+    {
+        id: 'tt1375666',
+        name: 'Inception',
+        year: '2010',
+        rating: '8.8',
+        image: 'https://image.tmdb.org/t/p/w500/8IB23LsnpiS3mH6hgaqcTuo3vH8.jpg',
+        badge: '⭐ Must Watch'
+    },
+    {
+        id: 'tt0133093',
+        name: 'The Matrix',
+        year: '1999',
+        rating: '8.7',
+        image: 'https://image.tmdb.org/t/p/w500/f89U3Y9S7Dky35Zgu1ORyccj9eH.jpg',
+        badge: '📈 Classic'
+    },
+    {
+        id: 'tt0111161',
+        name: 'The Shawshank Redemption',
+        year: '1994',
+        rating: '9.3',
+        image: 'https://image.tmdb.org/t/p/w500/q6y0Go1tsvn2KBigCSTp3qzIuoM.jpg',
+        badge: '🏆 Top Rated'
+    },
+    {
+        id: 'tt0109830',
+        name: 'Forrest Gump',
+        year: '1994',
+        rating: '8.8',
+        image: 'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxY9LscAFJs.\n\njpg',
+        badge: '💛 Beloved'
+    },
+    {
+        id: 'tt15367370',
+        name: 'Everything Everywhere All At Once',
+        year: '2022',
+        rating: '7.8',
+        image: 'https://image.tmdb.org/t/p/w500/rKvC7RM097q966777YVT6B99o8o.jpg',
+        badge: '✨ Oscar Winner'
+    },
+    {
+        id: 'tt15239678',
+        name: 'Dune: Part Two',
+        year: '2024',
+        rating: '8.6',
+        image: 'https://image.tmdb.org/t/p/w500/czembS0Rhi6BrYj74iUToURz69.\n\njpg',
+        badge: '🪐 Epic'
+    },
+    {
+        id: 'tt1160419',
+        name: 'Dune',
+        year: '2021',
+        rating: '8.0',
+        image: 'https://image.tmdb.org/t/p/w500/d5PB69enrollTV4pYp1v8U9AKy.\n\njpg',
+        badge: '🌟 Atmospheric'
+    },
 ];
 
 /**
@@ -77,37 +136,58 @@ export default function Home() {
             </div>
 
             <div className={styles.heroSection}>
-                <div className={styles.logoContainer}>
-                    <Image src="/logo.png" alt="Movie Insight Builder Logo" width={180} height={180} priority className={styles.mainLogo} />
+                {/* Search at the absolute top of the content area */}
+                <div className={styles.searchContainer}>
+                    <SearchBar />
                 </div>
-                <div className={styles.eyebrow}>🎬 AI-Powered Cinema Intelligence</div>
-                <h1 className={styles.title}>
-                    Uncover the Truth<br />Behind Every Film
-                </h1>
+
+                <div className={styles.logoContainer}>
+                    <Image src="/logo.png" alt="Movie Insight Builder Logo" width={120} height={120} priority className={styles.mainLogo} />
+                </div>
+
+                <h1 className={styles.title}>Explore the Cinema</h1>
                 <p className={styles.subtitle}>
-                    Powered by live YouTube signals, IMDb ratings & AI sentiment — get insights no review site can offer.
+                    AI-Powered Intelligence for the Modern Movie Enthusiast.
                 </p>
 
-                <SearchBar />
-
-                {/* Platform stats ticker */}
+                {/* Platform stats ticker - Subtle integration */}
                 <div className={styles.statsRow}>
                     {PLATFORM_STATS.map(s => (
                         <StatCounter key={s.label} {...s} />
                     ))}
                 </div>
 
-                {/* Trending movies */}
+                {/* Trending Grid Section */}
                 <div className={styles.trendingSection}>
                     <div className={styles.trendingHeader}>
                         <TrendingUp size={16} color="var(--gold)" />
-                        <span>Trending right now</span>
+                        <span>Curated Selections</span>
                     </div>
-                    <div className={styles.chipContainer}>
+
+                    <div className={styles.movieGrid}>
                         {TRENDING_MOVIES.map(movie => (
-                            <a key={movie.id} href={`/results?id=${movie.id}`} className={styles.chip}>
-                                <span className={styles.chipBadge}>{movie.badge}</span>
-                                <span>{movie.name}</span>
+                            <a key={movie.id} href={`/results?id=${movie.id}`} className={styles.movieCard}>
+                                <div className={styles.posterWrapper}>
+                                    <Image
+                                        src={movie.image}
+                                        alt={movie.name}
+                                        width={300}
+                                        height={450}
+                                        className={styles.posterImage}
+                                        loading="lazy"
+                                    />
+                                    <div className={styles.cardOverlay}>
+                                        <span className={styles.cardBadge}>{movie.badge}</span>
+                                        <div className={styles.cardRating}>
+                                            <Star size={12} fill="var(--gold)" />
+                                            {movie.rating}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={styles.movieInfo}>
+                                    <h3 className={styles.movieName}>{movie.name}</h3>
+                                    <p className={styles.movieYear}>{movie.year}</p>
+                                </div>
                             </a>
                         ))}
                     </div>
