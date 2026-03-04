@@ -11,14 +11,15 @@
 
 .videoWrapper {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    /* Center edge-to-edge regardless of parent */
     padding-bottom: 56.25%;
     /* 16:9 */
     height: 0;
-    border-radius: 16px;
     overflow: hidden;
     background: #000;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 }
 
 .iframe {

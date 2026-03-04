@@ -5,6 +5,13 @@
     margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    .main {
+        padding: 1.5rem 0;
+        /* Remove side padding, keep top/bottom */
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;

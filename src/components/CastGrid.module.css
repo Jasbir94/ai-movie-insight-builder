@@ -148,6 +148,10 @@
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+    .container {
+        padding: 1.5rem 1.5rem;
+    }
+
     .sectionTitle {
         font-size: 1.5rem;
         margin-bottom: 1rem;
