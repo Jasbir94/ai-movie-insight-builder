@@ -31,22 +31,20 @@ export default function SearchBar() {
         }
 
         const timer = setTimeout(async () => { // Renamed timeoutId to timer, added async
-            setIsLoading(true); // Added isLoading
             try {
-                const res = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`); // Changed query.trim() to query
+                // Don't set isLoading(true) for suggestions, only for full searches
+                const res = await fetch(`/api/suggestions?q=${encodeURIComponent(query)}`);
                 if (res.ok) {
                     const data = await res.json();
-                    setSuggestions(data.results || []); // Changed data.suggestions to data.results
+                    setSuggestions(data.suggestions || []); // Reverted to data.suggestions to match API route
                     setShowSuggestions(true);
                 }
             } catch (err) {
-                console.error("Failed to fetch suggestions:", err); // Original error message
-            } finally {
-                setIsLoading(false); // Added isLoading
+                console.error("Failed to fetch suggestions:", err);
             }
         }, 300); // 300ms debounce buffer
 
-        return () => clearTimeout(timer); // Changed timeoutId to timer
+        return () => clearTimeout(timer);
     }, [query]);
 
     // Close dropdown on outside click

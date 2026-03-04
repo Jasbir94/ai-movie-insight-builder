@@ -22,6 +22,8 @@ export async function GET(request) {
             page: 1
         });
 
+        const results = data.results || [];
+
         const suggestions = results.slice(0, 5).map(m => ({
             id: m.id,
             title: m.title,
