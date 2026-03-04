@@ -1,0 +1,37 @@
+.container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.filmStrip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--gray-dark);
+    padding: 20px 10px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border-left: 2px dashed rgba(255, 255, 255, 0.2);
+    border-right: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.frame {
+    width: 80px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.text {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}

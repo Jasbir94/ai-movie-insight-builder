@@ -1,0 +1,317 @@
+.main {
+    min-height: 100vh;
+    padding: 6rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navBack,
+.backButton {
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.navBack:hover,
+.backButton:hover {
+    transform: translateX(-5px);
+    color: var(--white);
+}
+
+.profileSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    background: rgba(26, 26, 26, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+@media (min-width: 768px) {
+    .profileSection {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.profileImage {
+    width: 200px;
+    height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.name {
+    font-size: 2.5rem;
+    color: var(--white);
+    margin: 0;
+}
+
+.meta {
+    color: var(--gray-text);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.meta strong {
+    color: var(--white);
+}
+
+.bio {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+}
+
+.sectionTitle {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding-bottom: 1rem;
+}
+
+.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.movieCard {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    background: rgba(26, 26, 26, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.movieCard:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(26, 26, 26, 0.7);
+}
+
+.moviePoster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.movieInfo {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.movieTitle {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.movieCharacter {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+}
+
+.movieMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--gray-text);
+}
+
+.movieRating {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    color: var(--white);
+}
+
+/* ── AI Recommendations Section ── */
+.recSection {
+    margin-bottom: 4rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(26, 26, 26, 0.4) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.recHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.recTitle {
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin: 0;
+}
+
+.recSubtitle {
+    color: var(--gray-text);
+    font-size: 0.85rem;
+    margin-left: auto;
+    font-style: italic;
+}
+
+.recGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    text-decoration: none;
+    padding: 0.75rem;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recCard:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(212, 175, 55, 0.05);
+    transform: translateX(6px);
+}
+
+.recRank {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: rgba(212, 175, 55, 0.6);
+    min-width: 36px;
+    text-align: center;
+}
+
+.recCard:first-child .recRank {
+    color: var(--gold);
+}
+
+.recPoster {
+    width: 60px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.recInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.recMovieTitle {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.recStats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.recStat {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--gray-text);
+    font-size: 0.85rem;
+}
+
+.recScoreBar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+}
+
+.recScoreFill {
+    height: 100%;
+    background: linear-gradient(90deg, #d4af37, #f5d78e);
+    border-radius: 100px;
+    transition: width 1s ease;
+}
+
+.recScoreLabel {
+    color: rgba(212, 175, 55, 0.7);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.recLoading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: var(--gray-text);
+    font-style: italic;
+    margin-bottom: 2rem;
+}
+
+.recSpinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

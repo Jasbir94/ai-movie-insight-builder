@@ -1,0 +1,228 @@
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.searchForm {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    background: var(--gray-dark);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50px;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.inputWrapper:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.icon {
+    color: var(--gray-text);
+    margin-right: 0.75rem;
+}
+
+.input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--gray-text);
+}
+
+.button {
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.75rem 2rem;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error {
+    color: var(--negative);
+    font-size: 0.9rem;
+    margin-left: 1.5rem;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestionsContainer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    background: var(--gray-dark);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: slideDown 0.2s ease;
+}
+
+.suggestionItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+}
+
+.suggestionItem:last-child {
+    border-bottom: none;
+}
+
+.suggestionItem:hover,
+.suggestionItem:focus {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.suggestionPoster {
+    width: 40px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.suggestionPosterPlaceholder {
+    width: 40px;
+    height: 60px;
+    border-radius: 4px;
+    margin-right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggestionInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestionTitle {
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.suggestionMeta {
+    color: var(--gray-text);
+    font-size: 0.85rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.suggestionRating {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .inputWrapper {
+        padding: 0.4rem 0.4rem 0.4rem 1.25rem;
+    }
+
+    .input {
+        font-size: 1rem;
+    }
+
+    .button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .suggestionsContainer {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-top: 0;
+        border-radius: 20px 20px 0 0;
+        max-height: 70vh;
+        overflow-y: auto;
+        border-bottom: none;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+        animation: slideUpMobile 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUpMobile {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .suggestionItem {
+        padding: 1rem;
+    }
+
+    .suggestionPoster {
+        width: 35px;
+        height: 52px;
+    }
+
+    .suggestionTitle {
+        font-size: 0.95rem;
+    }
+
+    .suggestionMeta {
+        font-size: 0.75rem;
+    }
+}

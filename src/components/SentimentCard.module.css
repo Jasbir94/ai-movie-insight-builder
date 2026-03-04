@@ -1,0 +1,116 @@
+.card {
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: var(--white);
+    margin: 0;
+}
+
+.badge {
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.summary {
+    color: var(--white);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+.keywords {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.keywordsTitle {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.keywordTokens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.keywordToken {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--gold);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card {
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        gap: 1.25rem;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+
+    .badge {
+        padding: 0.3rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .summary {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+}
