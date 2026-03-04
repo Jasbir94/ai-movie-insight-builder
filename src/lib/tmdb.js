@@ -216,14 +216,21 @@ export async function getTrendingMovies() {
         const data = await fetchTMDB('/trending/movie/day', { page: 1 });
         const results = data.results || [];
 
-        return results.slice(0, 8).map(movie => ({
-            id: movie.id.toString(),
-            name: movie.title,
-            year: (movie.release_date || '').substring(0, 4) || 'N/A',
-            rating: movie.vote_average ? movie.vote_average.toFixed(1) : 'NR',
-            image: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null,
-            badge: movie.vote_average > 8 ? '🔥 Trending' : '⭐ Popular'
-        }));
+        return results.slice(0, 8).map(movie => {
+            const posterPath = movie.poster_path;
+            const fullImageUrl = posterPath
+                ? `https://image.tmdb.org/t/p/w500${posterPath}`.trim()
+                : null;
+
+            return {
+                id: movie.id.toString(),
+                name: movie.title,
+                year: (movie.release_date || '').substring(0, 4) || 'N/A',
+                rating: movie.vote_average ? movie.vote_average.toFixed(1) : 'NR',
+                image: fullImageUrl,
+                badge: movie.vote_average > 8 ? '🔥 Trending' : '⭐ Popular'
+            };
+        });
     } catch (error) {
         console.error('Failed to fetch trending movies:', error);
         return [];
