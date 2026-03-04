@@ -224,7 +224,8 @@
         position: sticky;
         top: 3.5rem;
         /* Below the live ticker */
-        z-index: 99;
+        z-index: 102;
+        /* Increased to be above overlayActive (100) */
         margin: 0.5rem 0;
         padding: 0 1rem;
     }

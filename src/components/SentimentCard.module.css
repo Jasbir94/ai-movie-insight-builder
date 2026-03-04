@@ -39,6 +39,95 @@
     letter-spacing: 0.05em;
     border: 1px solid;
     animation: pulse 2s infinite ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Audio Readout Feature */
+.audioButton {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    width: fit-content;
+}
+
+.audioButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.audioButton:active {
+    transform: scale(0.95);
+}
+
+.playing {
+    background: var(--gold);
+    color: var(--black);
+    animation: bounceAudio 1s infinite alternate;
+}
+
+@keyframes bounceAudio {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.03);
+    }
+}
+
+/* Visual Gauge */
+.gaugeContainer {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.gaugeFill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.gaugeFill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
 }
 
 @keyframes pulse {
@@ -107,6 +196,17 @@
     .badge {
         padding: 0.3rem 1rem;
         font-size: 0.8rem;
+    }
+
+    .emoji {
+        font-size: 1.2rem;
+    }
+
+    .audioButton {
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem;
+        font-size: 1.1rem;
     }
 
     .summary {
