@@ -104,7 +104,7 @@ export default function SentimentCard({ sentiment }) {
 
             <p className={styles.summary}>{summary}</p>
 
-            {keywords && keywords.length > 0 && (
+            {Array.isArray(keywords) && keywords.length > 0 && (
                 <div className={styles.keywords}>
                     <span className={styles.keywordsTitle}>Key Themes:</span>
                     <div className={styles.keywordTokens}>
