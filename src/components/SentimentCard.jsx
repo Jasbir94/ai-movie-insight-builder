@@ -17,13 +17,16 @@ export default function SentimentCard({ sentiment }) {
     useEffect(() => {
         // Stop speaking if component unmounts
         return () => {
-            window.speechSynthesis.cancel();
+            if (typeof window !== 'undefined' && window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
         };
     }, []);
 
     if (!sentiment) return null;
 
     const { classification, summary, keywords } = sentiment;
+    const classificationLower = classification?.toLowerCase() || 'mixed';
 
     const toggleAudio = () => {
         if (!('speechSynthesis' in window)) {
