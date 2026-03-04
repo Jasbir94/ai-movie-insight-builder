@@ -69,7 +69,7 @@ const TRENDING_MOVIES = [
         name: 'Forrest Gump',
         year: '1994',
         rating: '8.8',
-        image: 'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxY9LscAFJs.\n\njpg',
+        image: 'https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxY9LscAFJs.jpg',
         badge: '💛 Beloved'
     },
     {
@@ -85,7 +85,7 @@ const TRENDING_MOVIES = [
         name: 'Dune: Part Two',
         year: '2024',
         rating: '8.6',
-        image: 'https://image.tmdb.org/t/p/w500/czembS0Rhi6BrYj74iUToURz69.\n\njpg',
+        image: 'https://image.tmdb.org/t/p/w500/czembS0Rhi6BrYj74iUToURz69.jpg',
         badge: '🪐 Epic'
     },
     {
@@ -93,7 +93,7 @@ const TRENDING_MOVIES = [
         name: 'Dune',
         year: '2021',
         rating: '8.0',
-        image: 'https://image.tmdb.org/t/p/w500/d5PB69enrollTV4pYp1v8U9AKy.\n\njpg',
+        image: 'https://image.tmdb.org/t/p/w500/d5PB69enrollTV4pYp1v8U9AKy.jpg',
         badge: '🌟 Atmospheric'
     },
 ];
@@ -140,15 +140,6 @@ export default function Home() {
                 <div className={styles.searchContainer}>
                     <SearchBar />
                 </div>
-
-                <div className={styles.logoContainer}>
-                    <Image src="/logo.png" alt="Movie Insight Builder Logo" width={120} height={120} priority className={styles.mainLogo} />
-                </div>
-
-                <h1 className={styles.title}>Explore the Cinema</h1>
-                <p className={styles.subtitle}>
-                    AI-Powered Intelligence for the Modern Movie Enthusiast.
-                </p>
 
                 {/* Platform stats ticker - Subtle integration */}
                 <div className={styles.statsRow}>
