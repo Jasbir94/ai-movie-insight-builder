@@ -61,10 +61,10 @@ export default function VideoPlayer({ youtubeId, movieTitle }) {
                 ) : (
                     <iframe
                         className={styles.iframe}
-                        src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&playsinline=0`}
+                        src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&vq=hd1080&fs=1&enablejsapi=1`}
                         title={`${movieTitle || 'Movie'} Trailer`}
                         frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                     />
                 )}
