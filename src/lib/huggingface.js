@@ -5,8 +5,8 @@
 import axios from 'axios';
 
 const HUGGING_FACE_API_KEY = process.env.HUGGING_FACE_API_KEY;
-// Using Mistral-7B-Instruct-v0.3 for stable sentiment extraction
-const HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.3";
+// Using Mistral-7B-v0.3 via the stable Inference API endpoint
+const HF_MODEL = "mistralai/Mistral-7B-v0.3";
 
 /**
  * Analyzes a collection of reviews to determine overall audience sentiment.
